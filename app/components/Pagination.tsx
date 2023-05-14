@@ -59,7 +59,7 @@ export const Pagination = ({ page }: { page: number }) => {
         </AlertDialogContent>
       </AlertDialog>
       <Button variant={"secondary"}>
-        <Link href={`?page=${page + 1}`}>
+        <Link href={`?page=${pageNumber + 1}`}>
           <ChevronRight className="h-4 w-4" />
         </Link>
       </Button>
