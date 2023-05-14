@@ -8,11 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { NextPage } from "next";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 async function getData(page: string) {
-  await wait(1000);
-
   const res = await fetch(`http://127.0.0.1:5000/all?page=${page}`, {
     next: { revalidate: 180 },
   });
