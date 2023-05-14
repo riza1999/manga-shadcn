@@ -9,7 +9,7 @@ import { NextPage } from "next";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 async function getData(page: string) {
-  const res = await fetch(`http://127.0.0.1:5000/all?page=${page}`, {
+  const res = await fetch(`${process.env.BACKEND_URL}/api/latest?page=${page}`, {
     next: { revalidate: 180 },
   });
 
@@ -74,7 +74,6 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
     <Card>
       <CardHeader className="p-0 relative space-y-0">
         <Link href={`/series/${manga_link}`}>
-          <MangaType contentType={manga.content_type} />
           <AspectRatio ratio={2 / 3}>
             <Image
               src={manga.thumbnail}
@@ -82,6 +81,7 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
               fill
               className="rounded-t-md object-cover"
             />
+            <MangaType contentType={manga.content_type} />
           </AspectRatio>
 
           <CardTitle className="pt-4 px-3 text-center text-x truncate">
