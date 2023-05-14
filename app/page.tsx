@@ -1,68 +1,75 @@
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
+import { manga } from "@/dummy/item";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LatestChapter, Manga } from "@/types/manga";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export default function IndexPage() {
   return (
     <>
-      <SectionIntro />
+      <section className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 items-center pb-8 pt-6 md:py-10">
+        <h3 className="text-3xl text-center col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
+          Komik Terbaru
+        </h3>
+        {manga.map((manga: Manga) => {
+          return <MangaCard key={manga.title} manga={manga} />;
+        })}
+      </section>
     </>
   );
 }
 
-const SectionIntro = () => {
+const MangaCard = ({ manga }: { manga: Manga }) => {
+  const manga_link = manga.title
+    .toLowerCase()
+    .split(" ")
+    .join("-")
+    .split("’")
+    .join("");
+
   return (
-    <section className="container grid grid-cols-3 lg:grid-rows-1 grid-rows-2 items-center pb-8 pt-6 md:py-10">
-      <div className="lg:col-span-2 col-span-3">
-        <h1 className="text-3xl text-center lg:text-start font-extrabold leading-tight sm:text-3xl md:text-5xl lg:text-6xl">
-          Hello, my name is <br /> Riza Kurniawanda
-        </h1>
-        <p className="lg:max-w-[700px] max-w-full pt-4 text-center lg:text-start text-lg text-muted-foreground sm:text-xl">
-          I am a Web Developer who is currently lived in Palangkaraya,
-          Indonesia.
-        </p>
-        <p className="lg:max-w-[700px] max-w-full text-center lg:text-start text-lg text-muted-foreground sm:text-xl">
-          Working remotely for Xeratic.
-        </p>
-      </div>
-      <div className="col-span-1 col-start-2 lg:col-start-3">
-        <AspectRatio ratio={1} className="bg-muted">
+    <Card>
+      <CardHeader className="p-0 relative space-y-0">
+        <Link href={`/series/${manga_link}`}>
+          <MangaType contentType={manga.content_type} />
           <Image
-            src="/images/newProfile.jpg"
-            alt="Photo Profile"
-            fill
-            className="rounded-lg object-cover"
+            src={manga.thumbnail}
+            alt={`${manga.title} thumbnail`}
+            width={1000}
+            height={1000}
+            className="rounded-t-md"
           />
-        </AspectRatio>
-      </div>
-    </section>
+          <CardTitle className="pt-4 px-3 text-center text-x truncate">
+            {manga.title}
+          </CardTitle>
+        </Link>
+      </CardHeader>
+      <CardContent className="mt-3">
+        <div className="grid w-full items-center gap-4">
+          {manga.latest_chapter.map((latest: LatestChapter) => {
+            return (
+              <div
+                key={`${manga.title}-${latest.chapter_title}`}
+                className="flex flex-row justify-between items-center"
+              >
+                <span className="text-sm">{latest.chapter_title}</span>
+                <span className="text-xs text-muted-foreground">
+                  {latest.chapter_post_on}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
-const SectionAbout = () => {
+const MangaType = ({ contentType }: { contentType: string }) => {
   return (
-    <section className="container grid grid-cols-3 lg:grid-rows-1 grid-rows-2 items-center pb-8 pt-6 md:py-10">
-      <div className="lg:col-span-2 col-span-3">
-        <h1 className="text-3xl text-center lg:text-start font-extrabold leading-tight sm:text-3xl md:text-5xl lg:text-6xl">
-          Hello, my name is <br /> Riza Kurniawanda
-        </h1>
-        <p className="lg:max-w-[700px] max-w-full pt-4 text-center lg:text-start text-lg text-muted-foreground sm:text-xl">
-          I am a Web Developer who is currently lived in Palangkaraya,
-          Indonesia.
-        </p>
-        <p className="lg:max-w-[700px] max-w-full text-center lg:text-start text-lg text-muted-foreground sm:text-xl">
-          Working remotely for Xeratic.
-        </p>
-      </div>
-      <div className="col-span-1 col-start-2 lg:col-start-3">
-        <AspectRatio ratio={1} className="bg-muted">
-          <Image
-            src="/images/newProfile.jpg"
-            alt="Photo Profile"
-            fill
-            className="rounded-lg object-cover"
-          />
-        </AspectRatio>
-      </div>
-    </section>
+    <div className="absolute top-2 right-2">
+      <Badge className="uppercase">{contentType}</Badge>
+    </div>
   );
 };
