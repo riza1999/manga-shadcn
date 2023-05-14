@@ -5,7 +5,7 @@ const logo = () => {
   return (
     <Typewriter
       onInit={(typewriter) => {
-        typewriter.typeString("Riza Kurniawanda").start();
+        typewriter.typeString("bacakomik").start();
       }}
     />
   );
