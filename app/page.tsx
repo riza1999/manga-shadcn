@@ -3,15 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LatestChapter, Manga } from "@/types/manga";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { NextPage } from "next";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Pagination } from "./components/Pagination";
 
 async function getData(page: string) {
-  const res = await fetch(`${process.env.BACKEND_URL}/api/latest?page=${page}`, {
-    next: { revalidate: 180 },
-  });
+  const res = await fetch(
+    `${process.env.BACKEND_URL}/api/latest?page=${page}`,
+    {
+      next: { revalidate: 180 },
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -43,25 +44,6 @@ export default async function IndexPage({
   );
 }
 
-const Pagination = ({ page }: { page: number }) => {
-  return (
-    <div className="pagination flex gap-3 justify-center col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
-      <Button disabled={page === 1} variant={"secondary"}>
-        <Link href={`?page=${page - 1}`}>
-          <ChevronLeft className="h-4 w-4" />
-        </Link>
-      </Button>
-      {/* <span className="bg-primary text-primary-foreground h-10 py-2 px-4 rounded-md">{page}</span> */}
-      <Button disabled>{Number.isNaN(page) ? 1 : page}</Button>
-      <Button variant={"secondary"}>
-        <Link href={`?page=${page + 1}`}>
-          <ChevronRight className="h-4 w-4" />
-        </Link>
-      </Button>
-    </div>
-  );
-};
-
 const MangaCard = ({ manga }: { manga: Manga }) => {
   const manga_link = manga.title
     .toLowerCase()
@@ -80,6 +62,7 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
               alt={`${manga.title} thumbnail`}
               fill
               className="rounded-t-md object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <MangaType contentType={manga.content_type} />
           </AspectRatio>
