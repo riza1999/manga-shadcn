@@ -52,7 +52,7 @@ const Pagination = ({ page }: { page: number }) => {
         </Link>
       </Button>
       {/* <span className="bg-primary text-primary-foreground h-10 py-2 px-4 rounded-md">{page}</span> */}
-      <Button disabled>{page}</Button>
+      <Button disabled>{Number.isNaN(page) ? 1 : page}</Button>
       <Button variant={"secondary"}>
         <Link href={`?page=${page + 1}`}>
           <ChevronRight className="h-4 w-4" />
