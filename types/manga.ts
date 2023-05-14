@@ -11,3 +11,16 @@ export interface LatestChapter {
   chapter_post_on: string
   chapter_title: string
 }
+
+export interface Series {
+  chapters: Chapter[]
+  image_link: string
+  genres: string[]
+  synopsis: string
+  title: string
+}
+
+export interface Chapter {
+  release_date: string
+  title: string
+}
