@@ -1,9 +1,8 @@
 import { ReadSeries, Series } from "@/types/manga";
-import Link from "next/link";
 import React from "react";
-import SelectChapter from "./components/SelectChapter";
 import DetailSeries from "./components/DetailSeries";
 import ReadChapter from "./components/ReadChapter";
+import { Metadata, ResolvingMetadata } from "next";
 
 async function getData(series_name: string) {
   const res = await fetch(
@@ -33,6 +32,32 @@ async function getDataRead(series_name: string, chapter: string) {
   }
 
   return res.json();
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string | string[] };
+}): Promise<Metadata> {
+  // read route params
+  const slug = params.slug;
+
+  const manga_title = slug[0]
+    .replace("-", " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
+  if (slug.length === 1)
+    return {
+      title: manga_title,
+    };
+
+  const chapter_read = slug[1]
+    .replace("-", " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
+  return {
+    title: `${manga_title} - ${chapter_read}`,
+  };
 }
 
 const page = async ({ params }: { params: { slug: string | string[] } }) => {

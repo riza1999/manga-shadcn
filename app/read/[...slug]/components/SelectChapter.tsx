@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -21,12 +21,18 @@ const SelectChapter = ({
   selected: ChapterOption;
   chapters: ChapterOption[];
 }) => {
+  const handleClick = () => alert("still not working");
+
   return (
     <div className="flex flex-row gap-4">
-      <Button variant={"secondary"} asChild>
-        <Link href={``}>
-          <ChevronLeft className="h-4 w-4" />
-        </Link>
+      <Button
+        variant={"secondary"}
+        onClick={handleClick}
+        // asChild
+      >
+        {/* <Link href={``}> */}
+        <ChevronLeft className="h-4 w-4" />
+        {/* </Link> */}
       </Button>
       <Select defaultValue={selected.title}>
         <SelectTrigger className="flex flex-1">
@@ -47,10 +53,14 @@ const SelectChapter = ({
           </ScrollArea>
         </SelectContent>
       </Select>
-      <Button variant={"secondary"} asChild>
-        <Link href={``}>
-          <ChevronRight className="h-4 w-4" />
-        </Link>
+      <Button
+        onClick={handleClick}
+        variant={"secondary"}
+        // asChild
+      >
+        {/* <Link href={``}> */}
+        <ChevronRight className="h-4 w-4" />
+        {/* </Link> */}
       </Button>
     </div>
   );

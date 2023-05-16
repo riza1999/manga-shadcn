@@ -12,7 +12,7 @@ import { Footer } from "@/components/ui/Footer"
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    template: `${siteConfig.name} - %s`,
   },
   description: siteConfig.description,
   themeColor: [
