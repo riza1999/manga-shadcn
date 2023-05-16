@@ -8,6 +8,7 @@ const ReadChapter = ({ data }: { data: ReadSeries }) => {
   const selected = data.chapters.find((chapter) => chapter.isSelected);
   const title_link = data.title
     .toLowerCase()
+    .replace(" –", "")
     .split(" ")
     .join("-")
     .split("’")

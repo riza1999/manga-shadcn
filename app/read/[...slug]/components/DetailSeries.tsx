@@ -10,6 +10,7 @@ import React from "react";
 const DetailSeries = ({ data }: { data: Series }) => {
   const manga_link = data.title
     .toLowerCase()
+    .replace(" –", "")
     .split(" ")
     .join("-")
     .split("’")
@@ -50,6 +51,7 @@ const DetailSeries = ({ data }: { data: Series }) => {
           {data.chapters.map((chapter: Chapter) => {
             const chapter_link = chapter.title
               .toLowerCase()
+              .replace(" –", "")
               .split(" ")
               .join("-")
               .split("’")

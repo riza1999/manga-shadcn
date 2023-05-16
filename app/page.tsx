@@ -50,10 +50,13 @@ export default async function IndexPage({
 const MangaCard = ({ manga }: { manga: Manga }) => {
   const manga_link = manga.title
     .toLowerCase()
+    .replace(" –", "")
     .split(" ")
     .join("-")
     .split("’")
     .join("");
+
+  console.log(manga_link);
 
   return (
     <Card>
