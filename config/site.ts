@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Riza Kurniawanda Portofolio",
-  description: "Riza Kurniawanda Portofolio",
+  name: "BacaKomik",
+  description: "BacaKomik by Riza Kurniwanda",
   mainNav: [],
   links: {
     github: "https://github.com/riza1999",

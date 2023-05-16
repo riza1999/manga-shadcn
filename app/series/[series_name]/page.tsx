@@ -26,11 +26,16 @@ const page = async ({ params }: { params: { series_name: string } }) => {
   const { series_name } = params;
   const data = (await getData(series_name)) as Series;
 
-  console.log(data.title)
-
   return (
     <>
       <section className="container max-w-screen-sm mx-auto grid gap-5 items-start pb-8 pt-6 md:py-10">
+        <div className="text-sm  flex flex-row gap-1">
+          <Link href={"/"} className="hover:underline">
+            <span>Home</span>
+          </Link>
+          <span>{">"}</span>
+          <span>{data.title}</span>
+        </div>
         <div className="px-24 sm:px-32">
           <AspectRatio ratio={2 / 3}>
             <Image
