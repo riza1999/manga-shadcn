@@ -51,6 +51,7 @@ export function CardProfile({ className, ...props }: CardProps) {
             alt="Profile image"
             className="rounded-md object-cover"
             fill
+            unoptimized
           />
         </div>
         <div className="text-center grid gap-2">

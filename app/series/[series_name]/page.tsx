@@ -37,6 +37,7 @@ const page = async ({ params }: { params: { series_name: string } }) => {
               src={data.image_link}
               alt={`${data.title} thumbnail`}
               fill
+              unoptimized
               className="rounded-md object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
@@ -73,15 +74,3 @@ const page = async ({ params }: { params: { series_name: string } }) => {
 };
 
 export default page;
-
-{
-  /* <AspectRatio ratio={2 / 3}>
-          <Image
-            src={data.image_link}
-            alt={`${data.title} thumbnail`}
-            fill
-            className="rounded-t-md object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </AspectRatio> */
-}

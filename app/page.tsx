@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Pagination } from "./components/Pagination";
+import { redirect } from "next/navigation";
 
 async function getData(page: string) {
   const res = await fetch(
@@ -27,7 +28,8 @@ export default async function IndexPage({
   searchParams: { [key: string]: string | undefined };
 }) {
   const { page } = searchParams;
-  const data = await getData(page ?? "1");
+  if (!page) redirect("/?page=1");
+  const data = await getData(page);
 
   return (
     <>
@@ -35,6 +37,7 @@ export default async function IndexPage({
         <h3 className="text-3xl text-center col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
           Komik Terbaru
         </h3>
+        <Pagination page={Number(page)} />
         {data.map((manga: Manga) => {
           return <MangaCard key={manga.title} manga={manga} />;
         })}
@@ -61,6 +64,7 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
               src={manga.thumbnail}
               alt={`${manga.title} thumbnail`}
               fill
+              unoptimized
               className="rounded-t-md object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />

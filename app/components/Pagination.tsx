@@ -15,11 +15,17 @@ import { Input } from "@/components/ui/input";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Pagination = ({ page }: { page: number }) => {
-  const [pageNumber, setPageNumber] = useState(Number.isNaN(page) ? 1 : page);
+  const [pageNumber, setPageNumber] = useState(page);
   const router = useRouter();
+
+  const isFirstPage = pageNumber === 1 ? true : false;
+
+  useEffect(() => {
+    setPageNumber(page);
+  }, [page]);
 
   const handleActionJump = () => {
     router.push(`/?page=${pageNumber}`);
@@ -31,7 +37,11 @@ export const Pagination = ({ page }: { page: number }) => {
 
   return (
     <div className="pagination flex gap-3 justify-center col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
-      <Button disabled={pageNumber === 1 ? true : false} variant={"secondary"}>
+      <Button
+        asChild={!isFirstPage}
+        disabled={isFirstPage}
+        variant={"secondary"}
+      >
         <Link href={`?page=${pageNumber - 1}`}>
           <ChevronLeft className="h-4 w-4" />
         </Link>
@@ -58,7 +68,7 @@ export const Pagination = ({ page }: { page: number }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <Button variant={"secondary"}>
+      <Button variant={"secondary"} asChild>
         <Link href={`?page=${pageNumber + 1}`}>
           <ChevronRight className="h-4 w-4" />
         </Link>
