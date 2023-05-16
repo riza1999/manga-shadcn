@@ -58,7 +58,7 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
   return (
     <Card>
       <CardHeader className="p-0 relative space-y-0">
-        <Link href={`/series/${manga_link}`}>
+        <Link href={`/read/${manga_link}`}>
           <AspectRatio ratio={2 / 3}>
             <Image
               src={manga.thumbnail}

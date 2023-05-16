@@ -24,3 +24,14 @@ export interface Chapter {
   release_date: string
   title: string
 }
+
+export interface ReadSeries {
+  chapters: ChapterOption[]
+  image_content: string[]
+  title: string
+}
+
+export interface ChapterOption {
+  isSelected: boolean
+  title: string
+}

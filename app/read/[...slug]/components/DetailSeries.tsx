@@ -2,29 +2,18 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Chapter, Series } from "@/types/manga";
+import { Chapter, ReadSeries, Series } from "@/types/manga";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-async function getData(series_name: string) {
-  const res = await fetch(
-    `${process.env.BACKEND_URL}/api/series/${series_name}`,
-    {
-      // next: { revalidate: 0 },
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
-const page = async ({ params }: { params: { series_name: string } }) => {
-  const { series_name } = params;
-  const data = (await getData(series_name)) as Series;
+const DetailSeries = ({ data }: { data: Series }) => {
+  const manga_link = data.title
+    .toLowerCase()
+    .split(" ")
+    .join("-")
+    .split("’")
+    .join("");
 
   return (
     <>
@@ -58,24 +47,33 @@ const page = async ({ params }: { params: { series_name: string } }) => {
           <p>{data.synopsis}</p>
         </div>
         <ScrollArea className="w-full rounded-md bg-secondary py-4 h-96">
-          {data.chapters.map((chapter: Chapter) => (
-            <React.Fragment key={chapter.title}>
-              <Link
-                className="flex justify-between px-5 py-2 hover:bg-primary/5"
-                href={"1"}
-              >
-                <span>{chapter.title}</span>
-                <span className="text-xs text-muted-foreground">
-                  {chapter.release_date}
-                </span>
-              </Link>
-              <Separator className="" />
-            </React.Fragment>
-          ))}
+          {data.chapters.map((chapter: Chapter) => {
+            const chapter_link = chapter.title
+              .toLowerCase()
+              .split(" ")
+              .join("-")
+              .split("’")
+              .join("");
+
+            return (
+              <React.Fragment key={chapter.title}>
+                <Link
+                  className="flex justify-between px-5 py-2 hover:bg-primary/5"
+                  href={`/read/${manga_link}/${chapter_link}`}
+                >
+                  <span>{chapter.title}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {chapter.release_date}
+                  </span>
+                </Link>
+                <Separator className="" />
+              </React.Fragment>
+            );
+          })}
         </ScrollArea>
       </section>
     </>
   );
 };
 
-export default page;
+export default DetailSeries;
