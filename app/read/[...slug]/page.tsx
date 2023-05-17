@@ -2,13 +2,13 @@ import { ReadSeries, Series } from "@/types/manga";
 import React from "react";
 import DetailSeries from "./components/DetailSeries";
 import ReadChapter from "./components/ReadChapter";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 async function getData(series_name: string) {
   const res = await fetch(
     `${process.env.BACKEND_URL}/api/series/${series_name}`,
     {
-      // next: { revalidate: 0 },
+      next: { revalidate: 30 },
     }
   );
 
@@ -23,7 +23,7 @@ async function getDataRead(series_name: string, chapter: string) {
   const res = await fetch(
     `${process.env.BACKEND_URL}/api/series/${series_name}/${chapter}`,
     {
-      // next: { revalidate: 0 },
+      next: { revalidate: 30 },
     }
   );
 

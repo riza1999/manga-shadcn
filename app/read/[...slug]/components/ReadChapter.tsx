@@ -27,7 +27,7 @@ const ReadChapter = ({ data }: { data: ReadSeries }) => {
 
   return (
     <>
-      <section className="container max-w-screen-sm mx-auto grid gap-5 items-start pb-8 pt-6 md:py-10">
+      <section className="container max-w-screen-sm mx-auto grid gap-5 items-start pb-4 pt-6 md:pt-10 md:pb-6">
         <div className="text-sm  flex flex-row gap-1">
           <Link href={"/"} className="hover:underline">
             <span>Home</span>
@@ -42,13 +42,15 @@ const ReadChapter = ({ data }: { data: ReadSeries }) => {
         </div>
         <h3 className="text-3xl text-center">{data.title}</h3>
         <h5 className="text-xl text-center">{selected.title}</h5>
+      </section>
+      <section className="container max-w-screen-sm mx-auto grid gap-5 items-start pb-8 pt-0 md:pb-10 px-0">
         <SelectChapter
           selected={selected}
           chapters={data.chapters}
           prevChapter={prevChapter}
           nextChapter={nextChapter}
         />
-        <div>
+        <div className="">
           {data.image_content.map((link: string, index) => {
             return (
               <Image

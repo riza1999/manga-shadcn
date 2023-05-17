@@ -11,7 +11,7 @@ async function getData(page: string) {
   const res = await fetch(
     `${process.env.BACKEND_URL}/api/latest?page=${page}`,
     {
-      next: { revalidate: 180 },
+      next: { revalidate: 30 },
     }
   );
 
@@ -80,8 +80,17 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
       <CardContent className="mt-3">
         <div className="grid w-full items-center gap-2">
           {manga.latest_chapter.map((latest: LatestChapter) => {
+            const chapter_link = latest.chapter_title
+              .toLowerCase()
+              .replace(" –", "")
+              .split(" ")
+              .join("-")
+              .split("’")
+              .join("");
+
             return (
-              <div
+              <Link
+                href={`/read/${manga_link}/${chapter_link}`}
                 key={`${manga.title}-${latest.chapter_title}`}
                 className="flex flex-row justify-between items-center"
               >
@@ -89,7 +98,7 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
                 <span className="text-xs text-muted-foreground">
                   {latest.chapter_post_on}
                 </span>
-              </div>
+              </Link>
             );
           })}
         </div>

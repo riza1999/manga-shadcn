@@ -61,7 +61,7 @@ const SelectChapter = ({
     .join("")}`;
 
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex flex-row gap-4 px-8">
       <Button
         variant={"secondary"}
         asChild={!!prevChapter}
