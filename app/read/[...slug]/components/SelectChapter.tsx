@@ -13,28 +13,65 @@ import {
 import { ChapterOption } from "@/types/manga";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const SelectChapter = ({
   selected,
   chapters,
+  nextChapter,
+  prevChapter,
 }: {
   selected: ChapterOption;
   chapters: ChapterOption[];
+  nextChapter: ChapterOption;
+  prevChapter: ChapterOption;
 }) => {
-  const handleClick = () => alert("still not working");
+  const pathname = usePathname().split("/");
+  pathname.pop();
+  const cleanPath = pathname.join("/");
+
+  const router = useRouter();
+
+  const handleChange = (title: string) => {
+    const chapter_link = title
+      .toLowerCase()
+      .replace(" –", "")
+      .split(" ")
+      .join("-")
+      .split("’")
+      .join("");
+
+    router.push(`${cleanPath}/${chapter_link}`);
+  };
+
+  const prevLink = `${cleanPath}/${prevChapter?.title
+    .toLowerCase()
+    .replace(" –", "")
+    .split(" ")
+    .join("-")
+    .split("’")
+    .join("")}`;
+
+  const nextLink = `${cleanPath}/${nextChapter?.title
+    .toLowerCase()
+    .replace(" –", "")
+    .split(" ")
+    .join("-")
+    .split("’")
+    .join("")}`;
 
   return (
     <div className="flex flex-row gap-4">
       <Button
         variant={"secondary"}
-        onClick={handleClick}
-        // asChild
+        asChild={!!prevChapter}
+        disabled={!prevChapter}
       >
-        {/* <Link href={``}> */}
-        <ChevronLeft className="h-4 w-4" />
-        {/* </Link> */}
+        <Link href={prevLink}>
+          <ChevronLeft className="h-4 w-4" />
+        </Link>
       </Button>
-      <Select defaultValue={selected.title}>
+      <Select defaultValue={selected.title} onValueChange={handleChange}>
         <SelectTrigger className="flex flex-1">
           <SelectValue placeholder="Select a fruit" />
         </SelectTrigger>
@@ -54,13 +91,13 @@ const SelectChapter = ({
         </SelectContent>
       </Select>
       <Button
-        onClick={handleClick}
         variant={"secondary"}
-        // asChild
+        asChild={!!nextChapter}
+        disabled={!nextChapter}
       >
-        {/* <Link href={``}> */}
-        <ChevronRight className="h-4 w-4" />
-        {/* </Link> */}
+        <Link href={nextLink}>
+          <ChevronRight className="h-4 w-4" />
+        </Link>
       </Button>
     </div>
   );

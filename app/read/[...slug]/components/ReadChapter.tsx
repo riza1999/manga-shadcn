@@ -6,6 +6,13 @@ import Image from "next/image";
 
 const ReadChapter = ({ data }: { data: ReadSeries }) => {
   const selected = data.chapters.find((chapter) => chapter.isSelected);
+  const selectedIndex = data.chapters.findIndex(
+    (chapter) => chapter.isSelected
+  );
+
+  const prevChapter = data.chapters[selectedIndex + 1];
+  const nextChapter = data.chapters[selectedIndex - 1];
+
   const title_link = data.title
     .toLowerCase()
     .replace(" –", "")
@@ -35,7 +42,12 @@ const ReadChapter = ({ data }: { data: ReadSeries }) => {
         </div>
         <h3 className="text-3xl text-center">{data.title}</h3>
         <h5 className="text-xl text-center">{selected.title}</h5>
-        <SelectChapter selected={selected} chapters={data.chapters} />
+        <SelectChapter
+          selected={selected}
+          chapters={data.chapters}
+          prevChapter={prevChapter}
+          nextChapter={nextChapter}
+        />
         <div>
           {data.image_content.map((link: string, index) => {
             return (
@@ -50,7 +62,12 @@ const ReadChapter = ({ data }: { data: ReadSeries }) => {
             );
           })}
         </div>
-        <SelectChapter selected={selected} chapters={data.chapters} />
+        <SelectChapter
+          selected={selected}
+          chapters={data.chapters}
+          prevChapter={prevChapter}
+          nextChapter={nextChapter}
+        />
       </section>
     </>
   );

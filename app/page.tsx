@@ -56,8 +56,6 @@ const MangaCard = ({ manga }: { manga: Manga }) => {
     .split("’")
     .join("");
 
-  console.log(manga_link);
-
   return (
     <Card>
       <CardHeader className="p-0 relative space-y-0">
