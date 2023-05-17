@@ -41,7 +41,7 @@ const ReadChapter = ({ data }: { data: ReadSeries }) => {
           <span>{selected.title}</span>
         </div>
         <h3 className="text-3xl text-center">{data.title}</h3>
-        <h5 className="text-xl text-center">{selected.title}</h5>
+        {/* <h5 className="text-xl text-center">{selected.title}</h5> */}
       </section>
       <section className="container max-w-screen-sm mx-auto grid gap-5 items-start pb-8 pt-0 md:pb-10 px-0">
         <SelectChapter
