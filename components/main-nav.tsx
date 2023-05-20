@@ -14,7 +14,11 @@ interface MainNavProps {
 export function MainNav({ items }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
-      <Link href="/" className="hidden items-center space-x-2 md:flex">
+      <Link
+        prefetch={false}
+        href="/"
+        className="hidden items-center space-x-2 md:flex"
+      >
         <span className="hidden font-bold sm:inline-block">
           <Logo />
         </span>
@@ -25,6 +29,7 @@ export function MainNav({ items }: MainNavProps) {
             (item, index) =>
               item.href && (
                 <Link
+                  prefetch={false}
                   key={index}
                   href={item.href}
                   className={cn(

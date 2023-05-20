@@ -20,7 +20,7 @@ const DetailSeries = ({ data }: { data: Series }) => {
     <>
       <section className="container max-w-screen-sm mx-auto grid gap-5 items-start pb-8 pt-6 md:py-10">
         <div className="text-sm  flex flex-row gap-1">
-          <Link href={"/"} className="hover:underline">
+          <Link prefetch={false} href={"/"} className="hover:underline">
             <span>Home</span>
           </Link>
           <span>{">"}</span>
@@ -60,6 +60,7 @@ const DetailSeries = ({ data }: { data: Series }) => {
             return (
               <React.Fragment key={chapter.title}>
                 <Link
+                  prefetch={false}
                   className="flex justify-between px-5 py-2 hover:bg-primary/5"
                   href={`/read/${manga_link}/${chapter_link}`}
                 >

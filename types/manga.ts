@@ -1,15 +1,25 @@
 export interface Manga {
   content_type: string
   latest_chapter: LatestChapter[]
-  score: string
+  score?: string
   thumbnail: string
-  thumbnail_set: string
+  thumbnail_set?: string
   title: string
+  genres?: string[]
+}
+
+export interface Search {
+  current_page: string
+  next_page: boolean
+  prev_page: boolean
+  searchs: Manga[]
+  total_search: string
 }
 
 export interface LatestChapter {
-  chapter_post_on: string
-  chapter_title: string
+  post_on: string
+  title: string
+  link?: string
 }
 
 export interface Series {

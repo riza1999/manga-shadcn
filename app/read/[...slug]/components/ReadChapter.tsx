@@ -29,11 +29,15 @@ const ReadChapter = ({ data }: { data: ReadSeries }) => {
     <>
       <section className="container max-w-screen-sm mx-auto grid gap-5 items-start pb-4 pt-6 md:pt-10 md:pb-6">
         <div className="text-sm  flex flex-row gap-1">
-          <Link href={"/"} className="hover:underline">
+          <Link prefetch={false} href={"/"} className="hover:underline">
             <span>Home</span>
           </Link>
           <span>{">"}</span>
-          <Link href={`/read/${title_link}`} className="hover:underline">
+          <Link
+            prefetch={false}
+            href={`/read/${title_link}`}
+            className="hover:underline"
+          >
             <span>{data.title}</span>
           </Link>
 

@@ -67,7 +67,7 @@ const SelectChapter = ({
         asChild={!!prevChapter}
         disabled={!prevChapter}
       >
-        <Link href={prevLink}>
+        <Link prefetch={false} href={prevLink}>
           <ChevronLeft className="h-4 w-4" />
         </Link>
       </Button>
@@ -95,7 +95,7 @@ const SelectChapter = ({
         asChild={!!nextChapter}
         disabled={!nextChapter}
       >
-        <Link href={nextLink}>
+        <Link prefetch={false} href={nextLink}>
           <ChevronRight className="h-4 w-4" />
         </Link>
       </Button>
