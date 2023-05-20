@@ -6,6 +6,8 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import Logo from "./logo";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 interface MainNavProps {
   items?: NavItem[];
