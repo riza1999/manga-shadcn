@@ -56,8 +56,8 @@ export function SiteHeader() {
           <Button onClick={handleClick}>Search</Button>
         </div>
         <div className="flex items-center justify-end space-x-4">
-          <Link href={'/login'}>Login</Link>
-          {/* <NavDropdownMenu /> */}
+          {/* <Link href={'/login'}>Login</Link> */}
+          <NavDropdownMenu />
         </div>
       </div>
     </header>

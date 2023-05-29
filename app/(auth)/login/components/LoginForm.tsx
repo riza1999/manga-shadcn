@@ -15,28 +15,57 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { login } from "@/lib/pocketbase";
+import { useRouter } from "next/navigation";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useState } from "react";
+import { ClientResponseError } from "pocketbase";
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8, "Password must contain at least 8 character(s)").max(255)
+  password: z
+    .string()
+    .min(8, "Password must contain at least 8 character(s)")
+    .max(255),
 });
 
 function LoginForm() {
+  const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState("");
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setErrorMsg("");
+
+    try {
+      await login(values.email, values.password);
+
+      router.push("/");
+    } catch (error: unknown) {
+      if (error instanceof ClientResponseError) {
+        setErrorMsg(error.message);
+      }
+    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      {errorMsg && (
+        <Alert variant={"destructive"} className="my-4">
+          <AlertTitle>Error!</AlertTitle>
+          <AlertDescription>
+            You can add components to your app using the cli.
+          </AlertDescription>
+        </Alert>
+      )}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -64,7 +93,12 @@ function LoginForm() {
           )}
         />
         <Button type="submit">Login</Button>
-        <p>Didn&apos;t have account? <Link className="underline" href={'/register'} >Register here</Link></p>
+        <p>
+          Didn&apos;t have account?{" "}
+          <Link className="underline" href={"/register"}>
+            Register here
+          </Link>
+        </p>
       </form>
     </Form>
   );
