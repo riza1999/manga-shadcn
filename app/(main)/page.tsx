@@ -1,6 +1,6 @@
 import { Manga } from "@/types/manga";
-import { Pagination } from "./components/Pagination";
 import { redirect } from "next/navigation";
+import { Pagination } from "./components/Pagination";
 import { MangaCard } from "./components/MangaCard";
 
 async function getData(page: string) {

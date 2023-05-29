@@ -9,6 +9,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Input } from "./ui/input";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import NavigationMenuDemo from "./header/NavMenu";
+import NavDropdownMenu from "./header/NavMenu";
 
 export function SiteHeader() {
   const router = useRouter();
@@ -54,24 +56,8 @@ export function SiteHeader() {
           <Button onClick={handleClick}>Search</Button>
         </div>
         <div className="flex items-center justify-end space-x-4">
-          <nav className="flex items-center space-x-1">
-            <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: "sm",
-                  variant: "ghost",
-                })}
-              >
-                <Icons.gitHub className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </div>
-            </Link>
-            <ThemeToggle />
-          </nav>
+          <Link href={'/login'}>Login</Link>
+          {/* <NavDropdownMenu /> */}
         </div>
       </div>
     </header>

@@ -42,12 +42,12 @@ export const MangaCard = ({ manga }: { manga: Manga }) => {
         <div className="grid w-full items-center gap-2">
           {manga.latest_chapter.map((latest: LatestChapter) => {
             const chapter_link = latest.title
-              .toLowerCase()
-              .replace(" –", "")
-              .split(" ")
-              .join("-")
-              .split("’")
-              .join("");
+              ?.toLowerCase()
+              ?.replace(" –", "")
+              ?.split(" ")
+              ?.join("-")
+              ?.split("’")
+              ?.join("");
 
             const isValid = isValidDateTime(latest.post_on);
             const post_on = isValid ?  getRelativeTime(new Date(latest.post_on)) : latest.post_on
