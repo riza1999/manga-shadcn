@@ -1,7 +1,9 @@
 import PocketBase from "pocketbase";
 import { Admin, Record } from "pocketbase";
 
-export const pb = new PocketBase("http://localhost:8090");
+// TODO: search why process.env not working
+const pb_url = process.env.NODE_ENV === "development" ? 'http://localhost:8090' : 'https://bacakomik-pb-docker.fly.dev'
+const pb = new PocketBase(pb_url);
 
 export const getUser = () => {
   const lsUserModel = localStorage.getItem("pocketbase_auth");
