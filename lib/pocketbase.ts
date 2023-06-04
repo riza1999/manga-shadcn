@@ -2,7 +2,10 @@ import PocketBase from "pocketbase";
 import { Admin, Record } from "pocketbase";
 
 // TODO: search why process.env not working
-const pb_url = process.env.NODE_ENV === "development" ? 'http://localhost:8090' : 'https://bacakomik-pb-docker.fly.dev'
+const pb_url =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8090"
+    : "https://bacakomik-pb-docker.fly.dev";
 const pb = new PocketBase(pb_url);
 
 export const getUser = () => {
@@ -34,10 +37,18 @@ export const register = async ({
   password: string;
   passwordConfirm: string;
 }) => {
-  return await pb.collection("users").create({
-    name,
-    email,
-    password,
-    passwordConfirm,
-  });
+  try {
+    const regUser = await pb.collection("users").create({
+      name,
+      email,
+      password,
+      passwordConfirm,
+    });
+
+    await pb.collection("users").requestVerification(email);
+
+    return regUser;
+  } catch (error) {
+    return error;
+  }
 };

@@ -2,6 +2,7 @@ import { Manga } from "@/types/manga";
 import { redirect } from "next/navigation";
 import { Pagination } from "./components/Pagination";
 import { MangaCard } from "./components/MangaCard";
+import { getUser } from "@/lib/pocketbase";
 
 async function getData(page: string) {
   const res = await fetch(

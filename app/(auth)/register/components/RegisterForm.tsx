@@ -65,7 +65,7 @@ function RegisterForm() {
         passwordConfirm: values.confirmPassword,
       });
 
-      router.push("/login");
+      router.push("/email-sent");
     } catch (error: unknown) {
       if (error instanceof ClientResponseError) {
         setErrorMsg(error.data.data.email.message);
