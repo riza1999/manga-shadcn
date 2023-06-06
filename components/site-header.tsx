@@ -42,7 +42,7 @@ export function SiteHeader() {
   }, [tSearchQ]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="w-full border-b bg-background">
       <div className="container flex gap-0 md:gap-8 h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav items={siteConfig.mainNav} />
         <div className="flex flex-1 w-[500] items-center justify-end space-x-4">
@@ -55,10 +55,7 @@ export function SiteHeader() {
           />
           <Button onClick={handleClick}>Search</Button>
         </div>
-        <div className="flex items-center justify-end space-x-4">
-          {/* <Link href={'/login'}>Login</Link> */}
-          <NavDropdownMenu />
-        </div>
+        <NavDropdownMenu />
       </div>
     </header>
   );
