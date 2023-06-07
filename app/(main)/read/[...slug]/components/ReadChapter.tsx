@@ -4,7 +4,6 @@ import React from "react";
 import SelectChapter from "./SelectChapter";
 import Image from "next/image";
 import { ScrollToTop } from "../../../../../components/ScrollToTop";
-import { Button } from "@/components/ui/button";
 
 const ReadChapter = ({ data }: { data: ReadSeries }) => {
   const selected = data.chapters.find((chapter) => chapter.isSelected);
